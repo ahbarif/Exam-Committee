@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+
+    <!................!>
+    <script language="JavaScript">
+	function selectAll(source) {
+		checkboxes = document.getElementsByName('colors[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
+	}
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/0.3.7/awesome-bootstrap-checkbox.css">
+
+    <!..................!>
+
+    <!.........second trial......!>
+    <script>
+    var select_all = document.getElementById("select_all"); //select all checkbox
+var checkboxes = document.getElementsByClassName("checkbox"); //checkbox items
+
+//select all checkboxes
+select_all.addEventListener("change", function(e){
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = select_all.checked;
+    }
+});
+
+
+for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('change', function(e){ //".checkbox" change
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        if(this.checked == false){
+            select_all.checked = false;
+        }
+        //check "select all" if all checkbox items are checked
+        if(document.querySelectorAll('.checkbox:checked').length == checkboxes.length){
+            select_all.checked = true;
+        }
+    });
+}
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="/static/images/favicon.png" type="image/png">
+
+  <title>Exam Committee</title>
+
+  <link rel="stylesheet" href="/static/css/style.default.css" />
+
+  <link rel="stylesheet" href="/static/css/bootstrap-fileupload.min.css" />
+  <link rel="stylesheet" href="/static/css/bootstrap-timepicker.min.css" />
+  <link rel="stylesheet" href="/static/css/jquery.tagsinput.css" />
+  <link rel="stylesheet" href="/static/css/colorpicker.css" />
+  <link rel="stylesheet" href="/static/css/dropzone.css" />
+
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="/static/js/html5shiv.js"></script>
+  <script src="/static/js/respond.min.js"></script>
+  <![endif]-->
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="static/css/main.css">
+<!--===============================================================================================-->
+    <script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/modernizr.min.js"></script>
+<script src="/static/js/jquery.sparkline.min.js"></script>
+<script src="/static/js/toggles.min.js"></script>
+<script src="/static/js/retina.min.js"></script>
+<script src="/static/js/jquery.cookies.js"></script>
+
+<script src="/static/js/jquery.autogrow-textarea.js"></script>
+<script src="/static/js/bootstrap-fileupload.min.js"></script>
+<script src="/static/js/bootstrap-timepicker.min.js"></script>
+<script src="/static/js/jquery.maskedinput.min.js"></script>
+<script src="/static/js/jquery.tagsinput.min.js"></script>
+<script src="/static/js/jquery.mousewheel.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+<script src="/static/js/dropzone.min.js"></script>
+<script src="/static/js/colorpicker.js"></script>
+
+
+<script src="/static/js/custom.js"></script>
+
+<script>
+jQuery(document).ready(function(){
+
+  // Chosen Select
+  jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+
+  // Tags Input
+  jQuery('#tags').tagsInput({width:'auto'});
+
+  // Textarea Autogrow
+  jQuery('#autoResizeTA').autogrow();
+
+  // Color Picker
+  if(jQuery('#colorpicker').length > 0) {
+	 jQuery('#colorSelector').ColorPicker({
+			onShow: function (colpkr) {
+				jQuery(colpkr).fadeIn(500);
+				return false;
+			},
+			onHide: function (colpkr) {
+				jQuery(colpkr).fadeOut(500);
+				return false;
+			},
+			onChange: function (hsb, hex, rgb) {
+				jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+				jQuery('#colorpicker').val('#'+hex);
+			}
+	 });
+  }
+
+  // Color Picker Flat Mode
+	jQuery('#colorpickerholder').ColorPicker({
+		flat: true,
+		onChange: function (hsb, hex, rgb) {
+			jQuery('#colorpicker3').val('#'+hex);
+		}
+	});
+
+  // Date Picker
+  jQuery('#datepicker').datepicker();
+
+  jQuery('#datepicker-inline').datepicker();
+
+  jQuery('#datepicker-multiple').datepicker({
+    numberOfMonths: 3,
+    showButtonPanel: true
+  });
+
+  // Spinner
+  var spinner = jQuery('#spinner').spinner();
+  spinner.spinner('value', 0);
+
+  // Input Masks
+  jQuery("#date").mask("99/99/9999");
+  jQuery("#phone").mask("(999) 999-9999");
+  jQuery("#ssn").mask("999-99-9999");
+
+  // Time Picker
+  jQuery('#timepicker').timepicker({defaultTIme: false});
+  jQuery('#timepicker2').timepicker({showMeridian: false});
+  jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+
+});
+</script>
+
+    <!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+	<script src="js/map-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+
+
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+
+  <div class="leftpanel">
+
+    <div class="logopanel">
+        <h1><span>[</span> Exam Committee Kit <span>]</span></h1>
+    </div><!-- logopanel -->
+
+    <div class="leftpanelinner">
+
+        <!-- This is only visible to small devices -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">
+            <div class="media userlogged">
+                <img alt="" src="/static/images/photos/loggeduser.png" class="media-object">
+                <div class="media-body">
+                    <h4>John Doe</h4>
+                    <span>"Life is so..."</span>
+                </div>
+            </div>
+
+            <h5 class="sidebartitle actitle">Account</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+              <li><a href="profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+              <li><a href="#"><i class="fa fa-cog"></i> <span>Account Settings</span></a></li>
+              <li><a href="#"><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
+              <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+            </ul>
+        </div>
+
+      <h5 class="sidebartitle">Navigation</h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li><a href="index.html"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+        <li><a href="email.html"><i class="fa fa-envelope-o"></i> <span>View Full Committee</span></a></li>
+        <li class="nav-parent nav-active active"><a href="#"><i class="fa fa-edit"></i> <span>Student</span></a>
+          <ul class="children" style="display: block;">
+            <li class="active"><a href="Student-History"><i class="fa fa-caret-right"></i>Student History</a></li>
+            <li ><a href="/add-student-data"><i class="fa fa-caret-right"></i>Add Student</a></li>
+	    <li><a href="form-layouts.html"><i class="fa fa-caret-right"></i>Stuff Login</a></li>
+               <li><a href="promote-student"><i class="fa fa-caret-right"></i>Promote Students</a></li>
+          </ul>
+        </li>
+        <li class="nav-parent"><a href="#"><i class="fa fa-suitcase"></i> <span>Profile</span></a>
+        </li>
+
+        <li><a href="layouts.html"><i class="fa fa-laptop"></i> <span>Logout</span></a></li>
+      </ul>
+
+
+
+
+
+
+
+
+
+
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+
+  <div class="mainpanel">
+
+    <div class="headerbar">
+
+      <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+      <!....ekhane search silo....!>
+
+      <div class="header-right">
+        <ul class="headermenu">
+          <li>
+            <div class="btn-group">
+              <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>
+                <span class="badge">2</span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-head pull-right">
+                <h5 class="title">2 Newly Registered Users</h5>
+                <ul class="dropdown-list user-list">
+                  <li class="new">
+                    <div class="thumb"><a href="#"><img src="/static/images/photos/user1.png" alt="" /></a></div>
+                    <div class="desc">
+                      <h5><a href="#">Draniem Daamul (@draniem)</a> <span class="badge badge-success">new</span></h5>
+                    </div>
+                  </li>
+                  <li class="new">
+                    <div class="thumb"><a href="#"><img src="/static/images/photos/user2.png" alt="" /></a></div>
+                    <div class="desc">
+                      <h5><a href="#">Zaham Sindilmaca (@zaham)</a> <span class="badge badge-success">new</span></h5>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb"><a href="#"><img src="/static/images/photos/user3.png" alt="" /></a></div>
+                    <div class="desc">
+                      <h5><a href="#">Weno Carasbong (@wenocar)</a></h5>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb"><a href="#"><img src="/static/images/photos/user4.png" alt="" /></a></div>
+                    <div class="desc">
+                      <h5><a href="#">Nusja Nawancali (@nusja)</a></h5>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="thumb"><a href="#"><img src="/static/images/photos/user5.png" alt="" /></a></div>
+                    <div class="desc">
+                      <h5><a href="#">Lane Kitmari (@lane_kitmare)</a></h5>
+                    </div>
+                  </li>
+                  <li class="new"><a href="#">See All Users</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="btn-group">
+              <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-envelope"></i>
+                <span class="badge">1</span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-head pull-right">
+                <h5 class="title">You Have 1 New Message</h5>
+                <ul class="dropdown-list gen-list">
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user1.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Draniem Daamul <span class="badge badge-success">new</span></span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user2.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Nusja Nawancali</span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user3.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Weno Carasbong</span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user4.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Zaham Sindilmaca</span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user5.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Veno Leongal</span>
+                      <span class="msg">Lorem ipsum dolor sit amet...</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new"><a href="#">Read All Messages</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="btn-group">
+              <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-globe"></i>
+                <span class="badge">5</span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-head pull-right">
+                <h5 class="title">You Have 5 New Notifications</h5>
+                <ul class="dropdown-list gen-list">
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user4.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Zaham Sindilmaca <span class="badge badge-success">new</span></span>
+                      <span class="msg">is now following you</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user5.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Weno Carasbong <span class="badge badge-success">new</span></span>
+                      <span class="msg">is now following you</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user3.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Veno Leongal <span class="badge badge-success">new</span></span>
+                      <span class="msg">likes your recent status</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user3.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Nusja Nawancali <span class="badge badge-success">new</span></span>
+                      <span class="msg">downloaded your work</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new">
+                    <a href="#">
+                    <span class="thumb"><img src="/static/images/photos/user3.png" alt="" /></span>
+                    <span class="desc">
+                      <span class="name">Nusja Nawancali <span class="badge badge-success">new</span></span>
+                      <span class="msg">send you 2 messages</span>
+                    </span>
+                    </a>
+                  </li>
+                  <li class="new"><a href="#">See All Notifications</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img src="/static/images/photos/loggeduser.png" alt="" />
+                John Doe
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
+                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <button id="chatview" class="btn btn-default tp-icon chat-icon">
+                <i class="glyphicon glyphicon-comment"></i>
+            </button>
+          </li>
+        </ul>
+      </div><!-- header-right -->
+
+    </div><!-- headerbar -->
+
+    <div class="pageheader">
+      <h2><i class="fa fa-edit"></i> Student Info </h2>
+    </div>
+
+       <div class="contentpanel">
+
+{#      <div class="panel panel-default">#}
+
+{#        <div class="panel-body panel-body-nopadding">#}
+
+{#          <div class="form-horizontal form-bordered">#}
+
+
+<!....................!>
+
+{#<div class="container-contact100">#}
+		<div class="contact100-map" id="google_map" data-map-x="40.722047" data-map-y="-73.986422" data-pin="images/icons/map-marker.png" data-scrollwhell="0" data-draggable="1"></div>
+
+{#    <div class="wrap-contact100">#}
+       <form class="contact100-form validate-form" action="/promote-student" method="post">
+
+    <span class="contact100-form-title">
+					Selected Student Information
+				</span>
+<!................table............!>
+
+
+       <!...................!>
+
+
+
+{#       <div class="form-group">#}
+{#              <label class="col-sm-3 control-label">Select Semester from semster</label>#}
+{#              <div class="col-sm-5">#}
+{#                  <select class="form-control chosen-select" data-placeholder="Select One" name= "semester1">#}
+{##}
+{#                <option>1st</option>#}
+{#                        <option>2nd</option>#}
+{#                        <option>3rd</option>#}
+{#                        <option>4th</option>#}
+{#                        <option>5th</option>#}
+{#                        <option>6th</option>#}
+{#                        <option>7th</option>#}
+{#                        <option>8th</option>#}
+{#                    </select>#}
+{#              </div>#}
+{#            </div>#}
+
+{#       <div class="form-group">#}
+{#              <label class="col-sm-3 control-label"> to semster</label>#}
+{#              <div class="col-sm-5">#}
+{#                  <select class="form-control chosen-select" data-placeholder="Select One" name= "semester2">#}
+{##}
+{#                <option>1st</option>#}
+{#                        <option>2nd</option>#}
+{#                        <option>3rd</option>#}
+{#                        <option>4th</option>#}
+{#                        <option>5th</option>#}
+{#                        <option>6th</option>#}
+{#                        <option>7th</option>#}
+{#                        <option>8th</option>#}
+{#                    </select>#}
+{#              </div>#}
+{#            </div>#}
+
+
+{#       <div class="container-contact100-form-btn">#}
+{#                <input class="contact100-form-btn" name="option" value="Confirmed" type="submit">#}
+{##}
+{#                </input>#}
+{#            </div>#}
+
+
+
+{#        <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All#}
+
+
+       <!...........ager table...........!>
+{#<table id="customers">#}
+{#  <tr>#}
+{#      <th>Select</th>#}
+{#    <th> Registration Number </th>#}
+{#            <th> class roll </th>#}
+{#            <th>Start Academic year</th>#}
+{#            <th> Current Semester</th>#}
+{#            <th>Current Academic Year</th>#}
+{#            <th>Status</th>#}
+{#      <th> Details </th>#}
+{#  </tr>#}
+{##}
+{#  {% for item in data %}#}
+{#      <ul>#}
+{#        <tr>#}
+{##}
+{#    <th> <div class="checkbox checkbox-success"><input type="checkbox" id="checkbox1" class="styled" name="colors[]"><label></label></div> </th>#}
+{#            <td><li><input type="checkbox" name="colors[]" value="red" />Red</li></td>#}
+{#            <tr> {{ item[0] }}</tr>#}
+{#            <tr> {{ item[1] }}</tr>#}
+{#            <tr> {{ item[2] }}</tr>#}
+{#            <tr> {{ item[3] }}</tr>#}
+{#            <tr> {{ item[4] }}</tr>#}
+{#            <tr> {{ item[5] }} </tr>#}
+{#            <th> <button type="button" class="btn btn-info">Info</button> </th>#}
+{#        </tr>#}
+{#      </ul>#}
+{##}
+{#        {% endfor %}#}
+{#</table>#}
+
+
+<table id="customers">
+{#       <table class="table mb30">#}
+            <thead>
+              <tr>
+                <th> Registration Number </th>
+            <th> class roll </th>
+            <th>Start Academic year</th>
+            <th> Current Semester</th>
+            <th>Current Academic Year</th>
+            <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                 <tr >
+
+                     {% for d in row %}
+                        <td>{{ d }}</td>
+                     {% endfor %}
+                 </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+{#       <div class="container-contact100-form-btn">#}
+{#                <input class="contact100-form-btn" type="submit">#}
+{##}
+{#                </input>#}
+{#            </div>#}
+       </form>
+
+    <!..................................!>
+
+{#		</div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+
+{#      </div>#}
+
+	<div id="dropDownSelect1"></div>
+
+
+<!....................!>
+
+       </div>
+
+
+</div></body>
+</html>
