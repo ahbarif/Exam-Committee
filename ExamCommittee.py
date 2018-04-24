@@ -67,6 +67,22 @@ def Authenticate():
         cursor.execute(tablestr)
         data2 = cursor.fetchall()
         return render_template('index.html', data2=data2)
+    
+@app.route('/create_exam.html',methods=['GET','POST'])
+def createExam():
+    course_id = "SELECT ID FROM Courses"
+    cursor.execute(course_id)
+    courseData=cursor.fetchall()
+    global teacherId
+    committee_id = "SELECT ID FROM Committee WHERE ChairmanID=(%s) OR GeneralMember1=(%s) OR GeneralMember2=(%s) OR ExternalMember1=(%s)"
+    cursor.execute(committee_id,(str(teacherId),str(teacherId),str(teacherId),str(teacherId)))
+    committeeData=cursor.fetchall()
+    teacheridList="SELECT ID FROM Teacher"
+    cursor.execute(teacheridList)
+    teacherData=cursor.fetchall()
+    conn.commit()
+    return render_template('create_exam.html',courseData=courseData,committeeData=committeeData,teacherData=teacherData)
+
 
 
 if __name__ == '__main__':
