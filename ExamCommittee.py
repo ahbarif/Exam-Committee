@@ -10,6 +10,9 @@ app.config['MYSQL_DATABASE_PASSWORD'] = '1152104'
 app.config['MYSQL_DATABASE_DB'] = 'examCommittee'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+
+conn = mysql.connect()
+cursor = conn.cursor()
 teacherID=0
 
 @app.route('/')
@@ -27,9 +30,34 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/index.html')
+@app.route('/index.html',methods = ['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+    examInfo = request.form.to_dict()
+    print(examInfo)
+    examid = examInfo["exid"]
+    courseid = examInfo["course"]
+    committeeid = examInfo["committee"]
+    examname = examInfo["exam"]
+    year = examInfo["year"]
+    semester = examInfo["semester"]
+    genre = examInfo["typed"]
+    examdate = examInfo["examdate"]
+    starter = examInfo["timer1"]
+    ender = examInfo["timer2"]
+    invigilator1=examInfo["invig1"]
+    invigilator2 = examInfo["invig2"]
+    invigilator3 = examInfo["invig3"]
+    #print(examid,courseid,examname,year,semester,genre,examdate,starter,ender,invigilator1,invigilator2,invigilator3)
+    cursor.callproc('create_exam',(examid,courseid,committeeid,examname,year,semester,genre,examdate,starter,ender,invigilator1,invigilator2,invigilator3))
+    data = cursor.fetchall()
+    #session['user']=data[0][0]
+    conn.commit()
+    tablestr2="SELECT * FROM ExamTable"
+    cursor.execute(tablestr2)
+    data2=cursor.fetchall()
+    flash('Exam is created successfully')
+    return render_template('index.html',data2=data2)
 
 
 @app.route('/Authenticate', methods=['POST', 'GET'])
@@ -51,7 +79,7 @@ def Authenticate():
 
     # print(result)
 
-    cursor = mysql.connect().cursor()
+    #cursor = mysql.connect().cursor()
     sqlString = "SELECT * from teacher where Username='" + result["username"] + "' and Password='" + result[
         "password"] + "'"
     cursor.execute(sqlString)
