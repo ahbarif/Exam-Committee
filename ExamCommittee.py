@@ -10,7 +10,7 @@ app.config['MYSQL_DATABASE_PASSWORD'] = '1152104'
 app.config['MYSQL_DATABASE_DB'] = 'examCommittee'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
-
+teacherID=0
 
 @app.route('/')
 def hello_world():
@@ -60,7 +60,13 @@ def Authenticate():
     if data is None:
         return "Username or Password is wrong"
     else:
-        return render_template('index.html')
+        #exam-list
+        global teacherId
+        teacherId = data[0]
+        tablestr = "SELECT * FROM ExamTable"
+        cursor.execute(tablestr)
+        data2 = cursor.fetchall()
+        return render_template('index.html', data2=data2)
 
 
 if __name__ == '__main__':
