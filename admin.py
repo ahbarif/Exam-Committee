@@ -17,16 +17,58 @@ mysql.init_app(app)
 
 @app.route('/')
 def login():
-    return render_template('loginPage.html')
+    return render_template('Common/loginPage.html')
 @app.route('/logout')
 def logout():
     session.clear()
     gc.collect()
-    return render_template('loginPage.html')
+    return render_template('Common/loginPage.html')
 
 @app.route('/admin')
 def adminHomePage():
     return render_template('AdminTasks/indexAdmin.html')
+
+@app.route('/teacher')
+def teacherHomePage():
+
+    username = session['username'] # -- eikhane teacher er email ase.. email diye query kore id ana lagbe
+    teacherId = getTeacherID(username)
+
+    chairman = getMember("ChairmanID", teacherId)
+    generalMember1 = getMember("GeneralMember1", teacherId)
+    generalMember2 = getMember("GeneralMember2", teacherId)
+    external = getMember("ExternalMember", teacherId)
+
+    return render_template('TeacherTasks/dashboard.html', chairman=chairman, g1=generalMember1, g2=generalMember2, external=external)
+
+def getTeacherID(username):
+    sqlString = "Select TeacherID from teacher where Username = " + "'" + username + "'"
+    cursor = mysql.connect().cursor(pymysql.cursors.DictCursor)
+    cursor.execute(sqlString)
+    data = cursor.fetchone()
+    return data['TeacherID']
+
+def getMember(type, id):
+    qtype = "'" + id + "'"
+    cursor = mysql.connect().cursor()
+    sqlString = "SELECT CommitteeName from committee where " + type + " = " + qtype
+    cursor.execute(sqlString)
+    data = cursor.fetchall()
+    info = ""
+
+    for x in data:
+        info = trimString(x)
+
+    return info
+
+
+def trimString(s):
+    new_str = ''
+    for char in s:
+        new_str = new_str + char
+    return new_str
+
+    return render_template('TeacherTasks/dashboard.html')
 
 @app.route('/Authenticate',methods = ["GET","POST"])
 def Authenticate():
@@ -48,11 +90,8 @@ def Authenticate():
         if query[2] == "Staff":
             tableName = "staff"
 
-        print(tableName);
+        #print(tableName);
 
-        #sqlString = "SELECT Username from "+ tableName +" where Username='" + query[0] + "' and Password='" + \
-                    #query[1] + "'"
-        #cursor.execute(sqlString)
         cursor = mysql.connect().cursor()
         data = cursor.execute("SELECT * from " + tableName + " where Username= %s and Password= %s",
                        (query[0], query[1],))
@@ -83,30 +122,6 @@ def Authenticate():
         print(str(e))
         error = "Invalid Email/Pass. Authentication Failed."
         return error
-
-    # ......................
-    #
-    # result = {'a':'20'}
-    # if request.method == 'POST':
-    #     result = request.form.to_dict()
-    #
-    # print(result)
-    # for x in result:
-    #     if x=="username":
-    #         print("username: "+result[x])
-    #     else:
-    #         print("password: " + result[x])
-    #
-    # cursor = mysql.connect().cursor()
-    # sqlString = "SELECT Username from admin where Username='" + result["username"] + "' and Password='" + result["password"] + "'"
-    # cursor.execute(sqlString)
-    # data = cursor.fetchone()
-    #
-    # if data is None:
-    #     flash("Username or Password is wrong")
-    #     return redirect(url_for(login))
-    # else:
-    #     return render_template('AdminTasks/indexAdmin.html')
 
 @app.route('/createComm')
 def CreateCommittee():
@@ -195,13 +210,14 @@ def saveCommitteeToDB():
             
     return redirect(url_for('adminHomePage'))
 
-def getTeacherID(name):
-    subsql = "SELECT TeacherID from teacher WHERE Name = '" + name + "'"
+def getTeacherID(username):
+    subsql = "SELECT TeacherID from teacher WHERE Username = '" + username + "'"
     con = mysql.connect()
-    cursor = con.cursor()
+    cursor = con.cursor(pymysql.cursors.DictCursor)
     cursor.execute(subsql)
     teacherID = cursor.fetchone()
-    return teacherID[0]
+    print(teacherID['TeacherID'])
+    return teacherID['TeacherID']
 
 def getSyllabusID(syl_name):
     subsql = "SELECT SyllabusID from syllabus WHERE Title = '" + syl_name + "'"
