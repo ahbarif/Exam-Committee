@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>Exam committee's kit</title>
+
+    <link href="/static/css/style.default.css" rel="stylesheet">
+    <link href="/static/css/jquery.datatables.css" rel="stylesheet">
+
+    <style>
+
+        .page-title {
+
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 29px;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .customTable {
+
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 17px;
+        }
+
+        .customTable th, .customTable td {
+            text-align: left;
+            padding: 10px;
+            font-family: Ubuntu;
+        }
+
+        .customTable tr {
+            border-bottom: 1px solid #ddd;
+            font-family: Ubuntu;
+            font-size: 13px;
+        }
+
+        .customTable tr.header, .customTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .verdict-false {
+            color: #E75125;
+            font-weight: bold;
+            font-family: Consolas;
+        }
+
+        .verdict-true {
+            color: #3CA55D;
+            font-weight: bold;
+            font-family: Consolas;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            padding-left: 200px;
+            padding-right: 200px;
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.2); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 100%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        /* The Close Button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px 8px;
+            background-color: #5cb85c;
+            color: white;
+            height: 50px;
+        }
+
+        .modal-body {
+            padding: 2px 8px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1>Exam Committee</h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+
+            <h5 class="sidebartitle">Navigation</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="http://127.0.0.1:5000"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li><a href="http://127.0.0.1:5000/profile"><i class="fa fa-user"></i>
+                    <span>Profile</span></a></li>
+                <li><a href="/tasks"><i class="fa fa-list"></i> <span>Tasks</span></a></li>
+                <li><a href="#"><i class="fa fa-clipboard"></i> <span>Notice board</span></a></li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="mainpanel">
+
+        <div class="headerbar">
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+            <div class="header-right">
+            </div>
+        </div>
+
+        <div class="pageheader" style="height: 60px">
+            <p class="page-title"> Question Setting status</p>
+        </div>
+
+        {# .......................    Page code begins here ..........................#}
+        <div class="container" style="padding: 20px">
+
+            <div class="panel-heading" style="width: 90%">
+
+                <table id="statusTable" class="customTable">
+                    <tr class="header">
+                        <th style="width: 10%"> Course</th>
+                        <th style="width: 10%"> Type</th>
+                        <th style="width: 20%"> Setter 1</th>
+                        <th style="width: 5%"> Status</th>
+                        <th style="width: 20%"> Setter 2</th>
+                        <th style="width: 6%"> Status</th>
+                        <th style="width: 6%"> Edit</th>
+
+                    </tr>
+                    {% for row in data %}
+
+                        <tr>
+                            <td> {{ row['CourseID'] }} </td>
+
+                            {% if row['Type'] == 1 %}
+                                <td>Final</td>
+                            {% else %}
+                                <td>In course</td>
+                            {% endif %}
+
+
+
+                            <td> {{ row['Qsetter1'] }} </td>
+
+                            {% if row['Status'] == 0 %}
+                                <td class="verdict-false">Pending</td>
+
+                            {% elif row['Status'] == 2 %}
+                                <td class="verdict-false">Pending</td>
+                            {% else %}
+                                <td class="verdict-true">Done</td>
+                            {% endif %}
+
+                            <td> {{ row['Qsetter2'] }} </td>
+                            {% if row['Status'] == 0 %}
+                                <td class="verdict-false">Pending</td>
+
+                            {% elif row['Status'] == 1 %}
+                                <td class="verdict-false">Pending</td>
+                            {% else %}
+                                <td class="verdict-true">Done</td>
+                            {% endif %}
+
+                            <td onclick="myFunction(this)">
+                                <a><i class="fa fa-edit"></i></a>
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </table>
+
+                <script>
+
+
+                    function myFunction(x) {
+                        {#                        alert("row index is: " + x.parentElement.rowIndex);#}
+                        var row = x.parentElement.rowIndex;
+                        var table = document.getElementById("statusTable");
+
+                        document.getElementById('ed_name1').innerHTML = table.rows[row].cells[2].innerHTML;
+                        document.getElementById('ed_name2').innerHTML = table.rows[row].cells[4].innerHTML;
+                        document.getElementById('ed_course').innerHTML = table.rows[row].cells[0].innerHTML;
+
+
+                        if (table.rows[row].cells[3].innerHTML == 'Done') {
+                            document.getElementById('checkbox1').setAttribute('checked', 'checked');
+                        }
+                        if (table.rows[row].cells[5].innerHTML == 'Done') {
+                            document.getElementById('checkbox2').setAttribute('checked', 'checked');
+                        }
+
+                        document.getElementById('myModal').style.display = "block";
+                        {#                        alert(document.getElementById("statusTable").rows[x.parentElement.rowIndex].cells[0].innerHTML);#}
+                    }
+                </script>
+
+
+                <div id="myModal" class="modal">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4 style="width: 200px">Edit status</h4>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <form action="http://localhost:5000/questionstatus" class="form-horizontal" method="post"
+                                  style="padding: 20px">
+
+                                {#                                committee id thakbe  + courseID thakbe  #}
+                                <input type="hidden" name="committeeId" id="committeeId">
+
+
+                                <script>
+
+                                    var id = '';
+                                    {% for row in data %}
+                                        id = {{ row['CommitteeID'] | tojson }};
+                                    {% endfor %}
+
+                                     document.getElementById("committeeId").value = id;
+
+                                </script>
+
+                                <table class="customTable">
+                                    <tr class="header">
+                                        <th style="width: 10%"> Course</th>
+                                        <th style="width: 15%"> First Setter</th>
+                                        <th style="width: 6%"> Status</th>
+                                        <th style="width: 15%"> Second Setter</th>
+                                        <th style="width: 6%"> Status</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td id="ed_course" name="courseId"></td>
+                                        <td id="ed_name1"></td>
+
+                                        <td>
+                                            <input type="checkbox" id="checkbox1" name="status1">
+                                        </td>
+
+                                        <td id="ed_name2"></td>
+
+                                        <td>
+
+                                            <input type="checkbox" id="checkbox2" name="status2">
+
+                                        </td>
+
+
+                                    </tr>
+
+                                </table>
+                                <br>
+
+                                <button type="submit" class="btn btn-success"> Submit</button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+
+                    var span = document.getElementsByClassName("close")[0];
+
+                    span.onclick = function () {
+                        document.getElementById('myModal').style.display = "none";
+                    }
+
+                    window.onclick = function (event) {
+                        if (event.target == document.getElementById('myModal')) {
+                            document.getElementById('myModal').style.display = "none";
+                        }
+                    }
+                </script>
+
+
+            </div>
+        </div>
+
+
+        {# .......................    Page code ends here ..........................#}
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="/static/js/toggles.min.js"></script>
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/dashboard.js"></script>
+
+
+</body>
+</html>

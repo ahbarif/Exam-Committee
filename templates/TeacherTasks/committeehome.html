@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>Exam committee's kit</title>
+
+    <link href="/static/css/style.default.css" rel="stylesheet">
+    <link href="/static/css/jquery.datatables.css" rel="stylesheet">
+
+    <style>
+
+        .page-title {
+
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 29px;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .object-title {
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 20px;
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content button {
+            background-color: transparent;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            width: 200px;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #ddd
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        #committeeTable {
+
+            border-collapse: collapse;
+            width: 140%;
+            border: 1px solid gainsboro;
+            font-size: 17px;
+        }
+
+        #committeeTable th, #committeeTable td {
+            text-align: left;
+            padding: 8px;
+            font-family: Ubuntu;
+        }
+
+        #committeeTable tr {
+            border-bottom: 1px solid #ddd;
+            font-family: Ubuntu;
+            font-size: 13px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1>Exam Committee</h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+
+            <h5 class="sidebartitle">Navigation</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="http://127.0.0.1:5000"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li><a href="http://127.0.0.1:5000/profile"><i class="fa fa-user"></i>
+                    <span>Profile</span></a></li>
+                <li><a href="/tasks"><i class="fa fa-list"></i> <span>Tasks</span></a></li>
+                <li><a href="#"><i class="fa fa-clipboard"></i> <span>Notice board</span></a></li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="mainpanel">
+
+        <div class="headerbar">
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+            <div class="header-right">
+            </div>
+        </div>
+
+        <div class="pageheader" style="height: 60px">
+            <p class="page-title"> {{ info[0] }}</p>
+        </div>
+
+        {# .......................    Page code begins here ..........................#}
+        <div class="container" style="padding: 20px">
+
+
+            <div class="col-sm-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Committe Info</h3>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div>
+                            <div>
+                                <table id="committeeTable">
+                                    <tbody>
+                                    <tr style="background-color: #BAE5C7; color: #2b2b2b">
+                                        <td>Chairman</td>
+                                        <td>{{ info[1] }}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #E3F4F7; color: #2b2b2b">
+                                        <td>General Member 1</td>
+                                        <td>{{ info[2] }}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #E3F4F7; color: #2b2b2b">
+                                        <td>General Member 2</td>
+                                        <td>{{ info[3] }}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #E3F4F7; color: #2b2b2b">
+                                        <td>External Member</td>
+                                        <td>{{ info[4] }}</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div><!-- table-responsive -->
+                        </div>
+
+                        <br>
+                        <p class="object-title"><strong>Tasks</strong></p>
+
+                        <table>
+                            <tr>
+                                <td style="width: 320px">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName1">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">Create
+                                            Exam
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName2">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">See Exams
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td style="width: 320px">
+                                    <form action="questionsetting" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName3">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">Assign
+                                            Question setters
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="questionstatus" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName4">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">Question setting status
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 320px">
+                                    <form action="questionsetting" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName5">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">Assign script evaluators
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="questionsetting" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName6">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">See script status
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 320px">
+                                    <form action="questionsetting" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName7">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">Generate Bills
+                                        </button>
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="questionsetting" method="post">
+                                        <input type="hidden" name="committeeName" id="committeeName8">
+                                        <button type="submit" class="btn btn-success"
+                                                style="width: 200px; margin-top: 10px">See Bills
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <script>
+
+                            for(var i = 1; i<9; i++){
+                                var id = 'committeeName' + i;
+                                document.getElementById(id).value = {{ info[0] | tojson}};
+                            }
+                        </script>
+
+
+                    </div>
+
+                </div>
+            </div><!-- panel -->
+
+
+        </div>
+        {# Pannel for committee Info #}
+
+
+    </div>
+
+
+    {# .......................    Page code ends here ..........................#}
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="/static/js/toggles.min.js"></script>
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/dashboard.js"></script>
+
+
+</body>
+</html>

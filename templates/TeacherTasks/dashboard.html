@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>Exam committee's kit</title>
+
+    <link href="/static/css/style.default.css" rel="stylesheet">
+    <link href="/static/css/jquery.datatables.css" rel="stylesheet">
+
+    <style>
+
+        .page-title {
+
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 29px;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .card {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1>Exam Committee</h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+
+            <h5 class="sidebartitle">Navigation</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="http://127.0.0.1:5000"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li><a href="http://127.0.0.1:5000/profile"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                <li><a href="/tasks"><i class="fa fa-list"></i> <span>Tasks</span></a></li>
+                <li><a href="#"><i class="fa fa-clipboard"></i> <span>Notice board</span></a></li>
+
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="mainpanel">
+
+        <div class="headerbar">
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+            <div class="header-right">
+            </div>
+        </div>
+
+        <div class="pageheader" style="height: 60px">
+            <p class="page-title"> Dashboard</p>
+        </div>
+
+        {# .......................    Page code begins here ..........................#}
+        <div class="container" style="padding: 20px">
+
+            <div class="card" style="background-color: whitesmoke">
+
+                <div class="container">
+                    <h3 style="margin-left: 3px">Your committees</h3>
+
+                    {% if chairman != '' %}
+                        <div class="row" style="margin-top: 12px; margin-left: 5px">
+                            <form action="committeehome" id="form" method="post" name="form">
+                                <input type="hidden" name="committeeName" id="ch1">
+                                <button type="submit" class="btn btn-success">{{ chairman }}</button>
+                                <script>
+                                    document.getElementById("ch1").value = {{ chairman | tojson}};
+                                </script>
+                            </form>
+                            <h5>[Chairman]</h5>
+                        </div>
+                    {% endif %}
+
+                    {% if g1 != '' %}
+                        <div class="row" style="margin-top: 12px; margin-left: 5px">
+                            <form action="committeehome" id="form" method="post" name="form">
+                                <input type="hidden" name="committeeName" id="g1m">
+                                <button type="submit" class="btn btn-success">{{ g1 }}</button>
+                                <script>
+                                    document.getElementById("g1m").value = {{ g1 | tojson}};
+                                </script>
+                            </form>
+                            <h5>[General Member]</h5>
+                        </div>
+                    {% endif %}
+
+                    {% if g2 != '' %}
+                        <div class="row" style="margin-top: 12px; margin-left: 5px">
+                            <form action="committeehome" id="form" method="post" name="form">
+                                <input type="hidden" name="committeeName" id="g2m">
+                                <button type="submit" class="btn btn-success">{{ g2 }}</button>
+                                <script>
+                                    document.getElementById("g2m").value = {{ g2 | tojson}};
+                                </script>
+                            </form>
+                            <h5>[General Member]</h5>
+                        </div>
+                    {% endif %}
+
+                    {% if external != '' %}
+                        <div class="row" style="margin-top: 12px; margin-left: 5px">
+                            <form action="committeehome" id="form" method="post" name="form">
+                                <input type="hidden" name="committeeName" id="externalm">
+                                <button type="submit" class="btn btn-success">{{ external }}</button>
+                                <script>
+                                    document.getElementById("externalm").value = {{ external | tojson}};
+                                </script>
+                            </form>
+                            <h5>[External Member]</h5>
+                        </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+        {# .......................    Page code ends here ..........................#}
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="/static/js/toggles.min.js"></script>
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/dashboard.js"></script>
+
+
+</body>
+</html>

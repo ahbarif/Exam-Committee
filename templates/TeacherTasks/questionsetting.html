@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+    <title>Exam committee's kit</title>
+
+    <link href="/static/css/style.default.css" rel="stylesheet">
+    <link href="/static/css/jquery.datatables.css" rel="stylesheet">
+
+    <style>
+
+        .page-title {
+
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 29px;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .object-title {
+            color: darkslategray;
+            font-family: Consolas;
+            font-size: 20px;
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        #committeeTable {
+
+            border-collapse: collapse;
+            width: 140%;
+            border: 1px solid gainsboro;
+            font-size: 17px;
+        }
+
+        #committeeTable th, #committeeTable td {
+            text-align: left;
+            padding: 8px;
+            font-family: Ubuntu;
+        }
+
+        #committeeTable tr {
+            border-bottom: 1px solid #ddd;
+            font-family: Ubuntu;
+            font-size: 13px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="leftpanel">
+
+        <div class="logopanel">
+            <h1>Exam Committee</h1>
+        </div><!-- logopanel -->
+
+        <div class="leftpanelinner">
+
+
+            <h5 class="sidebartitle">Navigation</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                <li class="active"><a href="http://127.0.0.1:5000"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li><a href="http://127.0.0.1:5000/profile"><i class="fa fa-user"></i>
+                    <span>Profile</span></a></li>
+                <li><a href="/tasks"><i class="fa fa-list"></i> <span>Tasks</span></a></li>
+                <li><a href="#"><i class="fa fa-clipboard"></i> <span>Notice board</span></a></li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="mainpanel">
+
+        <div class="headerbar">
+            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+            <div class="header-right">
+            </div>
+        </div>
+
+        <div class="pageheader" style="height: 60px">
+            <p class="page-title"> Assign Question Setters</p>
+        </div>
+
+        {# .......................    Page code begins here ..........................#}
+        <div class="container" style="padding: 20px">
+
+            <div class="panel-heading" style="width: 80%">
+                <form class="form-horizontal" action="http://localhost:5000/questionsetting" method="POST">
+
+
+                    <div class="row" style="margin-left: 10px">
+                        <h4>Select Exam</h4>
+                    </div>
+                    <div class="form-group" style="margin-left: 4px">
+                        <div class="col-sm-6">
+
+                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_exams"
+                                      class="form-control">
+                            </datalist>
+                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
+                                   list="ddl_exams" name="exam"/>
+
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 10px">
+                        <h4>Select Courses</h4>
+                    </div>
+                    <div class="form-group" style="margin-left: 4px">
+                        <div class="col-sm-6">
+
+                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_courses"
+                                      class="form-control">
+                            </datalist>
+                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
+                                   list="ddl_courses" name="courses"/>
+
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 10px">
+                        <h4>Select First Setter</h4>
+                    </div>
+                    <div class="form-group" style="margin-left: 4px">
+                        <div class="col-sm-6">
+
+                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_setter1"
+                                      class="form-control">
+                            </datalist>
+                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
+                                   list="ddl_setter1" name="setter1"/>
+
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 10px">
+                        <h4>Select First Setter</h4>
+                    </div>
+                    <div class="form-group" style="margin-left: 4px">
+                        <div class="col-sm-6">
+
+                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_setter2"
+                                      class="form-control">
+                            </datalist>
+                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
+                                   list="ddl_setter2" name="setter2"/>
+
+                        </div>
+                    </div>
+
+
+                    <button style="margin-top: 10px; margin-left: 12px" type="submit" class="btn btn-primary">Submit</button>
+
+
+                    <!--   Code snippet to populate the course list -->
+
+
+                </form>
+
+
+            </div>
+            {# Pannel for committee Info #}
+
+
+        </div>
+
+        <script type="text/javascript">
+            var subjectList = {{ subjetcs|tojson }};
+            var options = '';
+            for (var i = 0; i < subjectList.length; i++)
+                options += '<option value="' + subjectList[i] + '" />';
+
+            document.getElementById('ddl_courses').innerHTML = options;
+        </script>
+
+        <script type="text/javascript">
+            var examList = {{ exams|tojson }};
+            var options = '';
+            for (var i = 0; i < examList.length; i++)
+                options += '<option value="' + examList[i] + '" />';
+
+            document.getElementById('ddl_exams').innerHTML = options;
+        </script>
+
+        <script type="text/javascript">
+            var teacherList = {{ teachers|tojson }};
+            var options = '';
+            for (var i = 0; i < teacherList.length; i++)
+                options += '<option value="' + teacherList[i] + '" />';
+
+            document.getElementById('ddl_setter1').innerHTML = options;
+            document.getElementById('ddl_setter2').innerHTML = options;
+        </script>
+
+
+        {# .......................    Page code ends here ..........................#}
+
+
+    </div><!-- mainpanel -->
+
+</section>
+
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+<script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+
+<script src="/static/js/toggles.min.js"></script>
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/dashboard.js"></script>
+
+
+</body>
+</html>
