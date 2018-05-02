@@ -31,76 +31,83 @@
 
 <body>
 
-    <div id="wrapper">
+<div id="wrapper">
 
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="../index.html">Exam Committee's Kit</a>
-               <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
-               </ul>
-            </div>
-            <!-- /.navbar-header -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin">Exam Committee's Kit</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    {% if session.logged_in %}
+                        <a href="/logout"><span class="glyphicon glyphicon-log-in"></span> {{ session.userFullName }}
+                            (Log Out)</a>
+                    {% else %}
+                        <a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Log in</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-header -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="allCommittees"><i class="glyphicon glyphicon-stop"></i> Existing Committees</a>
-                        </li>
-                        <li>
-                            <a href="createComm"><i class="glyphicon glyphicon-stop"></i> Create New Committee</a>
-                        </li>
-                        <li>
-                            <a href="allTeachers"><i class="glyphicon glyphicon-stop"></i> Existing Teachers</a>
-                        </li>
-                        <li>
-                            <a href="NewTeacher"><i class="glyphicon glyphicon-stop"></i> Add New Teacher</a>
-                        </li>
-                        <li>
-                            <a href="admin"><i class="glyphicon glyphicon-stop"></i> Activity Log</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="allCommittees"><i class="glyphicon glyphicon-stop"></i> Existing Committees</a>
+                    </li>
+                    <li>
+                        <a href="createComm"><i class="glyphicon glyphicon-stop"></i> Create New Committee</a>
+                    </li>
+                    <li>
+                        <a href="allTeachers"><i class="glyphicon glyphicon-stop"></i> Existing Teachers</a>
+                    </li>
+                    <li>
+                        <a href="NewTeacher"><i class="glyphicon glyphicon-stop"></i> Add New Teacher</a>
+                    </li>
+                    <li>
+                        <a href="admin"><i class="glyphicon glyphicon-stop"></i> Activity Log</a>
+                    </li>
+                </ul>
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Existing Committees</h1>
-                </div>
-                <!-- /.col-lg-12 -->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Existing Committees</h1>
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>New Comments!</div>
-                                </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">26</div>
+                                <div>New Comments!</div>
                             </div>
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
                     </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Details</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
                 </div>
-
             </div>
-            <!-- /.row -->
+
+        </div>
+        <!-- /.row -->
 
     </div>
     <!-- /#wrapper -->
@@ -121,7 +128,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="/static/dist/js/sb-admin-2.js"></script>
 
-    </div>
+</div>
 
 </body>
 
