@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EC Kit</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor2/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/static/vendor2/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor2/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Exam Committee's Kit</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-header -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="allCommittees"><i class="glyphicon glyphicon-stop"></i> Existing Committees</a>
+                    </li>
+                    <li>
+                        <a href="createComm"><i class="glyphicon glyphicon-stop"></i> Create New Committee</a>
+                    </li>
+                    <li>
+                        <a href="allTeachers"><i class="glyphicon glyphicon-stop"></i> Existing Teachers</a>
+                    </li>
+                    <li>
+                        <a href="NewTeacher"><i class="glyphicon glyphicon-stop"></i> Add New Teacher</a>
+                    </li>
+                    <li>
+                        <a href="admin"><i class="glyphicon glyphicon-stop"></i> Activity Log</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Creating New Committee</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <div id="committeeForm">
+            <form class="form-horizontal form-bordered" action="http://localhost:5000/NewCommittee/save/" method="POST">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Committee Name</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="CommitteeName" placeholder="Example: 1st Year Exam Committee 2016-2017"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Academic Year</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="AcademicYear"
+                                data-placeholder="Choose a year...">
+                            <option value=""></option>
+                            <option value="1">1st</option>
+                            <option value="2">2nd</option>
+                            <option value="3">3rd</option>
+                            <option value="4">4th</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Calendar Year</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="CalendarYear" placeholder="Example: 2016-2017" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Start Date</label>
+                    <div class="col-sm-6">
+                        <input type="date" name="StartDate" placeholder="Date" id="stdate" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">End Date</label>
+                    <div class="col-sm-6">
+                        <input type="date" name="EndDate" placeholder="Date" id="endate" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Chairman</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="Chairman" id="ddl_chairman">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">General Member 1</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="GeneralMember1" id="ddl_gen1">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">General Member 2</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="GeneralMember2" id="ddl_gen2">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">External Member</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="ExtMember" id="ddl_external">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Syllabus</label>
+                    <div class="col-sm-6">
+                        <select class="form-control chosen-select" name="SyllabusID" id="ddl_syllabus">
+                            <option value=""></option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <script>
+
+                    var x = document.getElementById("ddl_syllabus");
+                    var arr = {{ syallbus|tojson }};
+
+                    for (var i = 0; i < arr.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = arr[i];
+                        option.value = arr[i];
+                        x.add(option);
+                    }
+                    var x2 = document.getElementById("ddl_chairman");
+                    var arr2 = {{ chairman|tojson }};
+
+                    for (var i = 0; i < arr2.length; i++) {
+                        var option2 = document.createElement("option");
+                        option2.text = arr2[i];
+                        option2.value = arr2[i];
+                        x2.add(option2);
+                    }
+
+                    var x3 = document.getElementById("ddl_gen1");
+                    var arr3 = {{ chairman|tojson }};
+
+                    for (var i = 0; i < arr3.length; i++) {
+                        //if(arr4[i].equals(selectedChairman)==false && arr4[i].equals(selectedGen1)==false)
+                        //{
+                        var option3 = document.createElement("option");
+                        option3.text = arr3[i];
+                        option3.value = arr3[i];
+                        x3.add(option3);
+                        //}
+                    }
+
+                    var x4 = document.getElementById("ddl_gen2");
+                    var arr4 = {{ chairman|tojson }};
+
+                    for (var i = 0; i < arr4.length; i++) {
+                        //if(arr4[i].equals(selectedChairman)==false && arr4[i].equals(selectedGen1)==false)
+                        //{
+                        var option4 = document.createElement("option");
+                        option4.text = arr4[i];
+                        option4.value = arr4[i];
+                        x4.add(option4);
+                        //}
+                    }
+                    var x5 = document.getElementById("ddl_external");
+                    var arr5 = {{ external|tojson }};
+
+                    for (var i = 0; i < arr5.length; i++) {
+                        var option5 = document.createElement("option");
+                        option5.text = arr5[i];
+                        option5.value = arr5[i];
+                        x5.add(option5);
+                    }
+
+                </script>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        ;
+                        <button class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/static/vendor2/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/vendor2/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/vendor2/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/static/vendor2/raphael/raphael.min.js"></script>
+    <script src="/static/vendor2/morrisjs/morris.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+</div>
+
+</body>
+
+</html>

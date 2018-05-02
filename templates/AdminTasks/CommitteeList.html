@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EC Kit</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/vendor2/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/static/vendor2/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor2/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .btn-link {
+            border: none;
+            outline: none;
+            background: none;
+            cursor: pointer;
+            color: darkslategrey;
+            padding: 0;
+            text-decoration: black;
+            font-family: inherit;
+            font-size: 18px;
+        }
+
+
+       #myInput {
+           width: 50%;
+           font-size: 16px;
+           padding: 8px;
+           border: 1px solid #ddd;
+           margin-bottom: 12px;
+       }
+
+       #commListTable {
+
+           border-collapse: collapse;
+           width: 100%;
+           border: 1px solid #ddd;
+           font-size: 17px;
+       }
+
+       #commListTable th, #commListTable td {
+           text-align: left;
+           padding: 12px;
+           font-family: Ubuntu;
+       }
+
+       #commListTable tr {
+           border-bottom: 1px solid #ddd;
+           font-family: Ubuntu;
+           font-size: 13px;
+       }
+
+       #commListTable tr.header, #commListTable tr:hover {
+           background-color: #f1f1f1;
+       }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Exam Committee's Kit</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-header -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="allCommittees"><i class="glyphicon glyphicon-stop"></i> Existing Committees</a>
+                    </li>
+                    <li>
+                        <a href="createComm"><i class="glyphicon glyphicon-stop"></i> Create New Committee</a>
+                    </li>
+                    <li>
+                        <a href="allTeachers"><i class="glyphicon glyphicon-stop"></i> Existing Teachers</a>
+                    </li>
+                    <li>
+                        <a href="NewTeacher"><i class="glyphicon glyphicon-stop"></i> Add New Teacher</a>
+                    </li>
+                    <li>
+                        <a href="admin"><i class="glyphicon glyphicon-stop"></i> Activity Log</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Existing Committees</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <section>
+            <div>
+
+                <table id="commListTable">
+                    <tr class="header">
+                        <th style="width: 20%"> Committee Name</th>
+                        <th style="width: 15%"> Chairman</th>
+                        <th style="width: 15%"> General Member 1</th>
+                        <th style="width: 15%"> General Member 2</th>
+                        <th style="width: 15%"> External Member</th>
+                        <th style="width: 10%"> Syllabus</th>
+
+                    </tr>
+                    {% for row in data %}
+
+                        <tr>
+                            <td> {{ row['CommitteeName'] }}  </td>
+                            <td> {{ row['ChairmanID'] }}     </td>
+                            <td> {{ row['GeneralMember1'] }} </td>
+                            <td> {{ row['GeneralMember2'] }} </td>
+                            <td> {{ row['ExternalMember'] }} </td>
+                            <td> {{ row['SyllabusID'] }}     </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </table>
+
+
+            </div>
+        </section>
+
+    </div>
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="/static/vendor2/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/static/vendor2/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/static/vendor2/metisMenu/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="/static/vendor2/raphael/raphael.min.js"></script>
+<script src="/static/vendor2/morrisjs/morris.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/static/dist/js/sb-admin-2.js"></script>
+
+</div>
+
+</body>
+
+</html>
