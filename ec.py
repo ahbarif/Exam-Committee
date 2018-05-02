@@ -3,6 +3,8 @@ from flaskext.mysql import MySQL
 from json import dump
 import gc
 import pymysql
+from loginHelper import LoginHelper
+from teacher import Teacher
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -18,6 +20,7 @@ mysql.init_app(app)
 @app.route('/')
 def login():
     return render_template('Common/loginPage.html')
+
 @app.route('/logout')
 def logout():
     session.clear()
@@ -30,97 +33,59 @@ def adminHomePage():
 
 @app.route('/teacher')
 def teacherHomePage():
+    return Teacher(mysql,session).showDashBoard()
 
-    username = session['username'] # -- eikhane teacher er email ase.. email diye query kore id ana lagbe
-    teacherId = getTeacherID(username)
-
-    chairman = getMember("ChairmanID", teacherId)
-    generalMember1 = getMember("GeneralMember1", teacherId)
-    generalMember2 = getMember("GeneralMember2", teacherId)
-    external = getMember("ExternalMember", teacherId)
-
-    return render_template('TeacherTasks/dashboard.html', chairman=chairman, g1=generalMember1, g2=generalMember2, external=external)
-
-def getTeacherID(username):
-    sqlString = "Select TeacherID from teacher where Username = " + "'" + username + "'"
-    cursor = mysql.connect().cursor(pymysql.cursors.DictCursor)
-    cursor.execute(sqlString)
-    data = cursor.fetchone()
-    return data['TeacherID']
-
-def getMember(type, id):
-    qtype = "'" + id + "'"
-    cursor = mysql.connect().cursor()
-    sqlString = "SELECT CommitteeName from committee where " + type + " = " + qtype
-    cursor.execute(sqlString)
-    data = cursor.fetchall()
-    info = ""
-
-    for x in data:
-        info = trimString(x)
-
-    return info
-
-
-def trimString(s):
-    new_str = ''
-    for char in s:
-        new_str = new_str + char
-    return new_str
-
-    return render_template('TeacherTasks/dashboard.html')
+#     username = session['username']
+#     teacherId = getTeacherID(username)
+#
+#     chairman = getMember("ChairmanID", teacherId)
+#     generalMember1 = getMember("GeneralMember1", teacherId)
+#     generalMember2 = getMember("GeneralMember2", teacherId)
+#     external = getMember("ExternalMember", teacherId)
+#
+#     return render_template('TeacherTasks/dashboard.html', chairman=chairman, g1=generalMember1, g2=generalMember2, external=external)
+#
+# def getTeacherID(username):
+#     sqlString = "Select TeacherID from teacher where Username = " + "'" + username + "'"
+#     cursor = mysql.connect().cursor(pymysql.cursors.DictCursor)
+#     cursor.execute(sqlString)
+#     data = cursor.fetchone()
+#     return data['TeacherID']
+#
+# def getMember(type, id):
+#     qtype = "'" + id + "'"
+#     cursor = mysql.connect().cursor()
+#     sqlString = "SELECT CommitteeName from committee where " + type + " = " + qtype
+#     cursor.execute(sqlString)
+#     data = cursor.fetchall()
+#     info = ""
+#
+#     for x in data:
+#         info = trimString(x)
+#
+#     return info
+#
+#
+# def trimString(s):
+#     new_str = ''
+#     for char in s:
+#         new_str = new_str + char
+#     return new_str
 
 @app.route('/Authenticate',methods = ["GET","POST"])
 def Authenticate():
-
-    error = ""
-    print("inside Auth")
     try:
         query = request.args['query']
         query = json.loads(query)
-
-        print(query)
-
-        tableName = ""
-
-        if query[2] == "Admin":
-            tableName = "admin"
-        if query[2] == "Teacher":
-            tableName = "teacher"
-        if query[2] == "Staff":
-            tableName = "staff"
-
-        #print(tableName);
-
-        cursor = mysql.connect().cursor()
-        data = cursor.execute("SELECT * from " + tableName + " where Username= %s and Password= %s",
-                       (query[0], query[1],))
-
-        print(data)
-        userInfo = cursor.fetchone()
-
-        if userInfo is None:
-            print("No result found!")
-        else:
-            for x in userInfo:
-                print(x)
-
-        if data==1:
-            session['logged_in'] = True
-            session['username'] = query[0]
-            session['userFullName'] = userInfo[0]
-            session['userType'] = query[2]
-            gc.collect()
-            print(query[2]+": "+userInfo[0])
-            return "OK_"+query[2]
-        else:
-            print(query[2]+"_NotFound")
-            return query[2]+"_NotFound"
-
+        #print(query)
+        loginObj=LoginHelper(mysql)
+        res=loginObj.loginFunction(query, session, gc)
+        print("Returning: "+res)
+        return res
 
     except Exception as e:
         print(str(e))
-        error = "Invalid Email/Pass. Authentication Failed."
+        error = "Invalid Email/Pass. Authentication Failed. Error: " + str(e)
         return error
 
 @app.route('/createComm')

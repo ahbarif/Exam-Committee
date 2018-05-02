@@ -94,9 +94,10 @@
                                     <input class="form-check-input" type="checkbox"> Remember Password</label>
                             </div>
                         </div>
-                        <input type="submit" value="Login" align="centre" onclick="submitLoginCredential()"/>
 
                     </form>
+                                            <input type="submit" value="Login" align="centre" onclick="submitLoginCredential()"/>
+
 
                     <script type="text/javascript">
 
@@ -113,12 +114,19 @@
                             var password = document.getElementById("password").value;
 
                             xhttp.onreadystatechange = function () {
+                                if(this.readyState ==4 && this.status==404)
+                                {
+                                    var x = xhttp.responseText;
+                                    console.log("response: " + x);
+
+                                }
                                 if (this.readyState == 4 && this.status == 200) {
                                     var x = xhttp.responseText;
                                     console.log("response: " + x);
 
                                     if (x == "OK_Admin") {
                                         window.location.replace("http://127.0.0.1:5000/admin");
+                                        console.log("response: " + x);
                                     }
                                     else if (x == "OK_Teacher") {
                                         window.location.replace("http://127.0.0.1:5000/teacher");
@@ -130,7 +138,8 @@
                                     }
 
                                     else {
-                                        window.location.replace("http://127.0.0.1:5000/createComm");
+                                        //console.log("Staff HomePage is not created and connected");
+                                        window.location.replace("http://127.0.0.1:5000/");
                                     }
                                 }
                             };
