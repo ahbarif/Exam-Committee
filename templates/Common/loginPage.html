@@ -46,12 +46,12 @@
     <div  style="margin-left: 10%">
 
         <div align="centre">
-            <h2 class="page-header">Please Login to Continue</h2>
+            <h2 class="page-header" style="margin-left: 200px;">Please Login to Continue</h2>
         </div>
 
         <div id="form_inputs">
 
-            <div class="container">
+            <div class="container" style="margin-left: 200px;">
                 <div class="card card-login mx-auto mt-5">
 
                     <form>
@@ -61,7 +61,7 @@
                             </div>
 
                             <input name="username" id="email" type="text" placeholder=""
-                                   required="" style="width: 60%">
+                                   required="" style="width: 40%; height: 35px; margin-top: 5px; margin-bottom: 5px">
                         </div>
                         <div class="w3ls-icon">
                             <div>
@@ -69,7 +69,7 @@
                             </div>
 
                             <input name="username"  id="password" type="password"
-                                   placeholder="Type Password" required="" style="width: 60%">
+                                   required="" style="width: 40%; height: 34px; margin-top: 5px; margin-bottom: 10px">
                         </div>
 
 
@@ -80,7 +80,7 @@
                             </div>
 
                             <select type="choose" class="fa-lock" id="chooseUserType" name="userType"
-                                    placeholder="Login As?" required="" style="width: 30%">
+                                    placeholder="Login As?" required="" style="width: 40%; height: 38px; margin-top: 5px">
                                 <option id="type1" value="Admin"> Admin</option>
                                 <option id="type2" value="Teacher"> Teacher</option>
                                 <option id="type3" value="Staff"> Office Staff</option>
@@ -91,12 +91,12 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox"> Remember Password</label>
+                                    <input class="form-check-input" type="checkbox" style="margin-top: 5px"> Remember Password</label>
                             </div>
                         </div>
 
                     </form>
-                                            <input type="submit" value="Login" align="centre" onclick="submitLoginCredential()"/>
+                                            <input class="btn btn-primary" type="submit" value="Login" align="centre" style="margin-top: 5px" onclick="submitLoginCredential()"/>
 
 
                     <script type="text/javascript">

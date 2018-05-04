@@ -13,7 +13,8 @@ mysql.init_app(app)
 
 conn = mysql.connect()
 cursor = conn.cursor()
-teacherID=0
+teacherID = 0
+
 
 @app.route('/')
 def hello_world():
@@ -30,34 +31,36 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/index.html',methods = ['POST', 'GET'])
+@app.route('/index.html', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-    examInfo = request.form.to_dict()
-    print(examInfo)
-    examid = examInfo["exid"]
-    courseid = examInfo["course"]
-    committeeid = examInfo["committee"]
-    examname = examInfo["exam"]
-    year = examInfo["year"]
-    semester = examInfo["semester"]
-    genre = examInfo["typed"]
-    examdate = examInfo["examdate"]
-    starter = examInfo["timer1"]
-    ender = examInfo["timer2"]
-    invigilator1=examInfo["invig1"]
-    invigilator2 = examInfo["invig2"]
-    invigilator3 = examInfo["invig3"]
-    #print(examid,courseid,examname,year,semester,genre,examdate,starter,ender,invigilator1,invigilator2,invigilator3)
-    cursor.callproc('create_exam',(examid,courseid,committeeid,examname,year,semester,genre,examdate,starter,ender,invigilator1,invigilator2,invigilator3))
-    data = cursor.fetchall()
-    #session['user']=data[0][0]
-    conn.commit()
-    tablestr2="SELECT * FROM ExamTable"
+        examInfo = request.form.to_dict()
+        print(examInfo)
+        examid = examInfo["exid"]
+        courseid = examInfo["course"]
+        committeeid = examInfo["committee"]
+        examname = examInfo["exam"]
+        year = examInfo["year"]
+        semester = examInfo["semester"]
+        genre = examInfo["typed"]
+        examdate = examInfo["examdate"]
+        starter = examInfo["timer1"]
+        ender = examInfo["timer2"]
+        invigilator1 = examInfo["invig1"]
+        invigilator2 = examInfo["invig2"]
+        invigilator3 = examInfo["invig3"]
+        # print(examid,courseid,examname,year,semester,genre,examdate,starter,ender,invigilator1,invigilator2,invigilator3)
+        cursor.callproc('create_exam', (
+        examid, courseid, committeeid, examname, year, semester, genre, examdate, starter, ender, invigilator1,
+        invigilator2, invigilator3))
+        data = cursor.fetchall()
+        # session['user']=data[0][0]
+        conn.commit()
+    tablestr2 = "SELECT * FROM ExamTable"
     cursor.execute(tablestr2)
-    data2=cursor.fetchall()
+    data2 = cursor.fetchall()
     flash('Exam is created successfully')
-    return render_template('index.html',data2=data2)
+    return render_template('index.html', data2=data2)
 
 
 @app.route('/Authenticate', methods=['POST', 'GET'])
@@ -79,7 +82,7 @@ def Authenticate():
 
     # print(result)
 
-    #cursor = mysql.connect().cursor()
+    # cursor = mysql.connect().cursor()
     sqlString = "SELECT * from teacher where Username='" + result["username"] + "' and Password='" + result[
         "password"] + "'"
     cursor.execute(sqlString)
@@ -88,29 +91,30 @@ def Authenticate():
     if data is None:
         return "Username or Password is wrong"
     else:
-        #exam-list
+        # exam-list
         global teacherId
         teacherId = data[0]
         tablestr = "SELECT * FROM ExamTable"
         cursor.execute(tablestr)
         data2 = cursor.fetchall()
         return render_template('index.html', data2=data2)
-    
-@app.route('/create_exam.html',methods=['GET','POST'])
+
+
+@app.route('/create_exam.html', methods=['GET', 'POST'])
 def createExam():
     course_id = "SELECT ID FROM Courses"
     cursor.execute(course_id)
-    courseData=cursor.fetchall()
+    courseData = cursor.fetchall()
     global teacherId
     committee_id = "SELECT ID FROM Committee WHERE ChairmanID=(%s) OR GeneralMember1=(%s) OR GeneralMember2=(%s) OR ExternalMember1=(%s)"
-    cursor.execute(committee_id,(str(teacherId),str(teacherId),str(teacherId),str(teacherId)))
-    committeeData=cursor.fetchall()
-    teacheridList="SELECT ID FROM Teacher"
+    cursor.execute(committee_id, (str(teacherId), str(teacherId), str(teacherId), str(teacherId)))
+    committeeData = cursor.fetchall()
+    teacheridList = "SELECT ID FROM Teacher"
     cursor.execute(teacheridList)
-    teacherData=cursor.fetchall()
+    teacherData = cursor.fetchall()
     conn.commit()
-    return render_template('create_exam.html',courseData=courseData,committeeData=committeeData,teacherData=teacherData)
-
+    return render_template('create_exam.html', courseData=courseData, committeeData=committeeData,
+                           teacherData=teacherData)
 
 
 if __name__ == '__main__':

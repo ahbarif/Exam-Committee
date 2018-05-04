@@ -146,10 +146,10 @@
 
                         <tr>
                             <td> {{ row['CommitteeName'] }}  </td>
-                            <td> {{ row['ChairmanID'] }}     </td>
-                            <td> {{ row['GeneralMember1'] }} </td>
-                            <td> {{ row['GeneralMember2'] }} </td>
-                            <td> {{ row['ExternalMember'] }} </td>
+                            <td> {{ teacherInfo[row['ChairmanID']] }}     </td>
+                            <td> {{ teacherInfo[row['GeneralMember1']] }} </td>
+                            <td> {{ teacherInfo[row['GeneralMember2']] }} </td>
+                            <td> {{ teacherInfo[row['ExternalMember']] }} </td>
                             <td> {{ row['SyllabusID'] }}     </td>
                         </tr>
 
