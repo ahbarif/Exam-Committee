@@ -113,11 +113,10 @@
                     <div class="form-group" style="margin-left: 4px">
                         <div class="col-sm-6">
 
-                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_exams"
-                                      class="form-control">
-                            </datalist>
-                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
-                                   list="ddl_exams" name="exam"/>
+                            <select class="form-control chosen-select" name="exam" id="ddl_exams">
+                                <option value=""></option>
+
+                            </select>
 
                         </div>
                     </div>
@@ -128,12 +127,10 @@
                     <div class="form-group" style="margin-left: 4px">
                         <div class="col-sm-6">
 
-                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_courses"
-                                      class="form-control">
-                            </datalist>
-                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
-                                   list="ddl_courses" name="courses"/>
+                            <select class="form-control chosen-select" name="courses" id="ddl_courses">
+                                <option value=""></option>
 
+                            </select>
                         </div>
                     </div>
 
@@ -143,11 +140,11 @@
                     <div class="form-group" style="margin-left: 4px">
                         <div class="col-sm-6">
 
-                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_setter1"
-                                      class="form-control">
-                            </datalist>
-                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
-                                   list="ddl_setter1" name="setter1"/>
+
+                            <select class="form-control chosen-select" name="setter1" id="ddl_setter1">
+                                <option value=""></option>
+
+                            </select>
 
                         </div>
                     </div>
@@ -158,17 +155,16 @@
                     <div class="form-group" style="margin-left: 4px">
                         <div class="col-sm-6">
 
-                            <datalist style="margin-bottom: -40px; font-weight: 200; height: 40px" id="ddl_setter2"
-                                      class="form-control">
-                            </datalist>
-                            <input type="text" style="font-weight: bold; height: 40px" class="form-control"
-                                   list="ddl_setter2" name="setter2"/>
+                            <select class="form-control chosen-select" name="setter2" id="ddl_setter2">
+                                <option value=""></option>
+
+                            </select>
 
                         </div>
                     </div>
 
-
-                    <button style="margin-top: 10px; margin-left: 12px" type="submit" class="btn btn-primary">Submit</button>
+                    <button style="margin-top: 10px; margin-left: 12px" type="submit" class="btn btn-primary">Submit
+                    </button>
 
 
                     <!--   Code snippet to populate the course list -->
@@ -185,30 +181,50 @@
 
         <script type="text/javascript">
             var subjectList = {{ subjetcs|tojson }};
-            var options = '';
-            for (var i = 0; i < subjectList.length; i++)
-                options += '<option value="' + subjectList[i] + '" />';
+            var x1 = document.getElementById("ddl_courses");
 
-            document.getElementById('ddl_courses').innerHTML = options;
+            for (var i = 0; i < subjectList.length; i++) {
+                var option2 = document.createElement("option");
+                option2.text = subjectList[i];
+                option2.value = subjectList[i];
+                x1.add(option2);
+            }
         </script>
 
         <script type="text/javascript">
             var examList = {{ exams|tojson }};
-            var options = '';
-            for (var i = 0; i < examList.length; i++)
-                options += '<option value="' + examList[i] + '" />';
+            var x2 = document.getElementById("ddl_exams");
 
-            document.getElementById('ddl_exams').innerHTML = options;
+            for (var i = 0; i < examList.length; i++) {
+                var option2 = document.createElement("option");
+                option2.text = examList[i];
+                option2.value = examList[i];
+                x2.add(option2);
+            }
         </script>
 
         <script type="text/javascript">
             var teacherList = {{ teachers|tojson }};
-            var options = '';
-            for (var i = 0; i < teacherList.length; i++)
-                options += '<option value="' + teacherList[i] + '" />';
+            var x3 = document.getElementById("ddl_setter1");
 
-            document.getElementById('ddl_setter1').innerHTML = options;
-            document.getElementById('ddl_setter2').innerHTML = options;
+            for (var i = 0; i < teacherList.length; i++) {
+                var option2 = document.createElement("option");
+                option2.text = teacherList[i];
+                option2.value = teacherList[i];
+                x3.add(option2);
+            }
+        </script>
+
+           <script type="text/javascript">
+            var teacherList = {{ teachers|tojson }};
+            var x4 = document.getElementById("ddl_setter2");
+
+            for (var i = 0; i < teacherList.length; i++) {
+                var option2 = document.createElement("option");
+                option2.text = teacherList[i];
+                option2.value = teacherList[i];
+                x4.add(option2);
+            }
         </script>
 
 

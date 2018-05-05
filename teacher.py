@@ -131,8 +131,13 @@ class Teacher:
 
         if 'committeeName' in result:
 
+
+
             committeeId = self.get_CommitteeId(result['committeeName'])
             year = self.get_CommitteeYear(result['committeeName'])
+
+            print('name = ' + result['committeeName'])
+            print(year)
 
             subjects = self.getCourseList(year)
             exams = self.getExamList(committeeId)
@@ -262,6 +267,7 @@ class Teacher:
             else:
                 print(result)
                 print("Update query was run")
+                status = 0
                 committeeId = result['committeeId']
                 courseId = result['courseId']
 
@@ -274,7 +280,7 @@ class Teacher:
                 else:
                     status = 0
 
-                    self.update_question_status(courseId.strip(), str(status))
+                self.update_question_status(courseId.strip(), str(status))
 
                 sqlString = "SELECT Type, CourseID, Qsetter1, Qsetter2, Status, q.CommitteeID FROM exam e INNER JOIN Qsetting q on q.ExamID = e.ID WHERE q.CommitteeID = " + "'" + committeeId + "'"
                 cursor = self.mysql.connect().cursor(pymysql.cursors.DictCursor)

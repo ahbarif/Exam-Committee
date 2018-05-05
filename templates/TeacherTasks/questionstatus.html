@@ -17,9 +17,9 @@
         .page-title {
 
             color: darkslategray;
-            font-family: Garuda;
+            font-family: Consolas;
             font-size: 29px;
-            font-weight: 700;
+            font-weight: 600;
             margin-top: 3px;
         }
 
@@ -32,7 +32,7 @@
         }
 
         .customTable th, .customTable td {
-            text-align: left;
+            text-align: center;
             padding: 10px;
             font-family: Ubuntu;
         }
@@ -141,7 +141,7 @@
 
             <h5 class="sidebartitle">Navigation</h5>
             <ul class="nav nav-pills nav-stacked nav-bracket">
-                <li class="active"><a href="http://127.0.0.1:5000/teacher"><i class="fa fa-home"></i> Dashboard</a></li>
+                <li class="active"><a href="http://127.0.0.1:5000"><i class="fa fa-home"></i> Dashboard</a></li>
                 <li><a href="http://127.0.0.1:5000/profile"><i class="fa fa-user"></i>
                     <span>Profile</span></a></li>
                 <li><a href="/tasks"><i class="fa fa-list"></i> <span>Tasks</span></a></li>
@@ -172,12 +172,13 @@
                 <table id="statusTable" class="customTable">
                     <tr class="header">
                         <th style="width: 10%"> Course</th>
-                        <th style="width: 10%"> Type</th>
                         <th style="width: 20%"> Setter 1</th>
+                        <th style="width: 5%"> Send Mail</th>
                         <th style="width: 5%"> Status</th>
                         <th style="width: 20%"> Setter 2</th>
+                        <th style="width: 5%"> Send Mail</th>
                         <th style="width: 6%"> Status</th>
-                        <th style="width: 6%"> Edit</th>
+                        <th style="width: 5%"> Edit status</th>
 
                     </tr>
                     {% for row in data %}
@@ -185,15 +186,11 @@
                         <tr>
                             <td> {{ row['CourseID'] }} </td>
 
-                            {% if row['Type'] == 1 %}
-                                <td>Final</td>
-                            {% else %}
-                                <td>In course</td>
-                            {% endif %}
-
-
-
                             <td> {{ row['Qsetter1'] }} </td>
+
+                            <td onclick="emailFunction(this)">
+                                <a><i class="fa fa-envelope-o"></i></a>
+                            </td>
 
                             {% if row['Status'] == 0 %}
                                 <td class="verdict-false">Pending</td>
@@ -204,7 +201,15 @@
                                 <td class="verdict-true">Done</td>
                             {% endif %}
 
+
+
                             <td> {{ row['Qsetter2'] }} </td>
+
+
+                            <td onclick="emailFunction(this)">
+                                <a><i class="fa fa-envelope-o"></i></a>
+                            </td>
+
                             {% if row['Status'] == 0 %}
                                 <td class="verdict-false">Pending</td>
 
@@ -214,9 +219,11 @@
                                 <td class="verdict-true">Done</td>
                             {% endif %}
 
+
                             <td onclick="myFunction(this)">
                                 <a><i class="fa fa-edit"></i></a>
                             </td>
+
 
                         </tr>
 
@@ -225,27 +232,46 @@
                 </table>
 
                 <script>
+                    function emailFunction(x) {
+                        var row = x.parentElement.rowIndex;
+                        var cell = x.cellIndex;
+                        var table = document.getElementById("statusTable");
+
+                        var id = '';
+                        {% for row in data %}
+                            id = {{ row['CommitteeID'] | tojson }};
+                        {% endfor %}
+                        document.getElementById("committeeName_mail").value = id;
+
+
+                        document.getElementById("rem_course").setAttribute('value', table.rows[row].cells[0].innerHTML);
+                        document.getElementById("recipient").value = table.rows[row].cells[cell - 1].innerHTML;
+                        document.getElementById('emailModal').style.display = "block";
+
+                    }
+                </script>
+
+                <script>
 
 
                     function myFunction(x) {
-                        {#                        alert("row index is: " + x.parentElement.rowIndex);#}
                         var row = x.parentElement.rowIndex;
                         var table = document.getElementById("statusTable");
 
-                        document.getElementById('ed_name1').innerHTML = table.rows[row].cells[2].innerHTML;
+                        document.getElementById('ed_name1').innerHTML = table.rows[row].cells[1].innerHTML;
                         document.getElementById('ed_name2').innerHTML = table.rows[row].cells[4].innerHTML;
                         document.getElementById('ed_course').innerHTML = table.rows[row].cells[0].innerHTML;
 
+                        document.getElementById('courseId').value = table.rows[row].cells[0].innerHTML;
 
                         if (table.rows[row].cells[3].innerHTML == 'Done') {
-                            document.getElementById('checkbox1').setAttribute('checked', 'checked');
+                            document.getElementById("checkbox1").checked = true;
                         }
-                        if (table.rows[row].cells[5].innerHTML == 'Done') {
-                            document.getElementById('checkbox2').setAttribute('checked', 'checked');
+                        if (table.rows[row].cells[6].innerHTML == 'Done') {
+                            document.getElementById("checkbox2").checked = true;
                         }
 
                         document.getElementById('myModal').style.display = "block";
-                        {#                        alert(document.getElementById("statusTable").rows[x.parentElement.rowIndex].cells[0].innerHTML);#}
                     }
                 </script>
 
@@ -266,6 +292,7 @@
 
                                 {#                                committee id thakbe  + courseID thakbe  #}
                                 <input type="hidden" name="committeeId" id="committeeId">
+                                <input type="hidden" name="courseId" id="courseId">
 
 
                                 <script>
@@ -275,7 +302,8 @@
                                         id = {{ row['CommitteeID'] | tojson }};
                                     {% endfor %}
 
-                                     document.getElementById("committeeId").value = id;
+                                    document.getElementById("committeeId").value = id;
+
 
                                 </script>
 
@@ -318,6 +346,47 @@
                     </div>
                 </div>
 
+
+                <div id="emailModal" class="modal">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>Send Reminder</h4>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="panel panel-default">
+
+                                <form id="emailForm" action="/questionstatus" method="post">
+
+
+                                    <div class="panel-body">
+                                        <div class="row row-pad-5">
+                                            <div class="col-lg-4">
+                                                <input type="hidden" id="committeeName_mail" name="committeeInfo">
+                                                <input type="text" name="recipient" placeholder="Name"
+                                                       class="form-control" id="recipient">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="rem_course" placeholder="Email"
+                                                       class="form-control" id="rem_course">
+                                            </div>
+                                        </div><!-- row -->
+                                        <textarea class="form-control" rows="5" placeholder="Message (Optional)"
+                                                  form="emailForm" name="msg" id="msg"></textarea>
+                                    </div><!-- panel-body -->
+
+                                    <button class="btn btn-primary" style="margin-left: 15px">Send Mail</button>
+
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
                 <script>
 
                     var span = document.getElementsByClassName("close")[0];
@@ -329,6 +398,12 @@
                     window.onclick = function (event) {
                         if (event.target == document.getElementById('myModal')) {
                             document.getElementById('myModal').style.display = "none";
+                            document.getElementById("checkbox1").checked = false;
+                            document.getElementById("checkbox2").checked = false;
+                        }
+
+                        if (event.target == document.getElementById('emailModal')) {
+                            document.getElementById('emailModal').style.display = "none";
                         }
                     }
                 </script>
