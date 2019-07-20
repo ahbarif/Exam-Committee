@@ -325,11 +325,11 @@ class Teacher:
 
     def send_mail(self, msg_body, toaddr):
 
-        fromaddr = "2015-216-797@student.cse.du.ac.bd"
+        fromaddr = "sender email"
         msg = multipart.MIMEMultipart()
         msg['From'] = "Exam Committee"
         # msg['To'] = toaddr
-        toaddr = 'hasibulhq.moon@gmail.com'
+        toaddr = 'reciever email'
         msg['Subject'] = "Question Setting Task Pending"
 
         msg.attach(mailText.MIMEText(msg_body, 'plain'))
@@ -337,7 +337,7 @@ class Teacher:
         server.ehlo()
         server.starttls()
         server.ehlo()
-        server.login("2015-216-797@student.cse.du.ac.bd", "01521331720")
+        server.login("email", "password")
         text = msg.as_string()
 
         print(text)
